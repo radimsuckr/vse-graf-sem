@@ -1,0 +1,23 @@
+services:
+  neo4j:
+    container_name: neo4j
+    environment:
+      - NEO4J_AUTH=neo4j/SuperPassw0rd!
+      - NEO4J_apoc_export_file_enabled=true
+      - NEO4J_apoc_import_file_enabled=true
+      - NEO4J_apoc_import_file_use__neo4j__config=true
+      - NEO4J_PLUGINS=["apoc", "graph-data-science"]
+    image: neo4j:latest
+    ports:
+      - 7474:7474
+      - 7687:7687
+    volumes:
+      - neo4j_db_data:/data
+      - ./data/:/var/lib/neo4j/import
+      - neo4j_db_logs:/logs
+      - neo4j_db_plugins:/plugins
+
+volumes:
+  neo4j_db_data:
+  neo4j_db_logs:
+  neo4j_db_plugins:
